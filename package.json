@@ -1,7 +1,7 @@
 {
   "name": "botboiler-tasks",
   "version": "1.0.0",
-  "description": "task for updating generator-botboiler automatically",
+  "description": "task for updating generator-botboiler automatically *",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
