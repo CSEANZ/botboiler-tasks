@@ -1,0 +1,27 @@
+{
+  "name": "botboiler-tasks",
+  "version": "1.0.0",
+  "description": "task for updating generator-botboiler automatically",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MSFTAuDX/botboiler-tasks.git"
+  },
+  "author": "Azadeh Khojandi, Jordan Knight",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MSFTAuDX/botboiler-tasks/issues"
+  },
+  "homepage": "https://github.com/MSFTAuDX/botboiler-tasks#readme",
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "fs": "0.0.1-security",
+    "gulp": "^3.9.1",
+    "ncp": "^2.0.0",
+    "path": "^0.12.7",
+    "replace": "^0.3.0"
+  }
+}
