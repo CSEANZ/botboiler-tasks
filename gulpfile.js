@@ -2,35 +2,37 @@ require('dotenv').config();
 var gulp = require('gulp');
 var fs = require('fs');
 var path = require('path');
+var run = require('gulp-run');
 
+gulp.task('gitupdate', ['gitinit'], function () {
+  return run('git submodule update').exec();
+});
+
+gulp.task('gitinit', function () {
+  return run('git submodule init').exec();
+});
 
 // update generator
-gulp.task('updategenerator', function () {
+gulp.task('updategenerator', ['gitupdate'], function () {
 
   var env = process.env;
-  console.log("process.env.GeneratorBotboilerPath");
-  console.log(process.env.GeneratorBotboilerPath);
-
-
-  if (env === null ||
-    env.GeneratorBotboilerPath === null ||
-    env.GeneratorBotboilerPath === undefined ||
-    env.GeneratorBotboilerPath === '') {
-    console.error('Error: Please clone https://github.com/MSFTAuDX/generator-botboiler and then set the value GeneratorBotboilerPath in your .env')
-    return;
-  }
-
-  if (env === null ||
-    env.BotboilerPath === null ||
-    env.BotboilerPath === undefined ||
-    env.BotboilerPath === '') {
-    console.error('Error: Please clone https://github.com/MSFTAuDX/botboiler and then set the value GeneratorBotboilerPath in your .env')
-    return;
-  }
-
+  var dir = process.cwd();
+ 
   //var gulpRanInThisFolder = process.cwd();
-  var sourcefolder = env.BotboilerPath;
-  var destinationfolder = path.join(env.GeneratorBotboilerPath, '/generators\/app\/templates\/');
+  var sourcefolder = path.join(dir, '../../submodules/botboiler');  
+  var destinationfolder = path.join(dir, '../../generators/app/templates/');
+
+  if(!fs.existsSync(sourcefolder)){
+    console.log(`Folder not found: ${sourcefolder}`);
+    return;
+  }
+
+  if(!fs.existsSync(destinationfolder)){
+    console.log(`Folder not found: ${destinationfolder}`);
+    return;
+  }
+ 
+ console.log(`Source: ${sourcefolder} Dest: ${destinationfolder}`);
 
   var srcsource = path.join(sourcefolder, '/src');
   var srcdestination = path.join(destinationfolder, '/src');
@@ -82,9 +84,9 @@ gulp.task('updategenerator', function () {
     if (!r) {
       return console.error(err);
     }
-
+    
   });
-
+ 
 
   var packagesource = path.join(sourcefolder, 'package.json');
 
@@ -102,7 +104,6 @@ gulp.task('updategenerator', function () {
         console.log('ERROR: ' + err);
         return;
       }
-      //update file
       //update file
       var replace = require("replace");
       replace({
